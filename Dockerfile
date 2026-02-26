@@ -1,15 +1,11 @@
-FROM python:3.13-slim
+FROM python:3.11-slim
 
 WORKDIR /app
 
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    gcc \
-    g++ \
-    libatlas-base-dev \
-    && rm -rf /var/lib/apt/lists/*
-
 COPY requirements.txt .
+
+RUN python -m pip install --upgrade pip setuptools wheel
+
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
